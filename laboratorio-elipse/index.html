@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Laboratorio de la Elipse - Feria STEAM+ 2026</title>
+    <meta name="description" content="Laboratorio Matemático Interactivo de la Elipse - Feria STEAM+ 2026. Explora, construye, deduce y comprueba la ecuación canónica y propiedades de la elipse en tiempo real. Creado por Valeria Hinestroza, Salomé Jiménez y Gabriela Muñoz.">
+    <meta name="theme-color" content="#0a0f1d">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://duranmgabriela05-cloud.github.io/LABORATORIO-RECTA-/">
+    <meta name="google-site-verification" content="googlec7402ac01baf1102">
+    <!-- Hojas de estilo modulares oficiales -->
+    <link rel="stylesheet" href="css/base.css?v=16">
+    <link rel="stylesheet" href="css/animaciones.css?v=16">
+    <link rel="stylesheet" href="css/elipse.css?v=16">
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN SUPERIOR RESPONSIVE -->
+    <header class="barra-navegacion">
+        <button type="button" class="logo-sitio" onclick="navegarA('bienvenida')" aria-label="Ir a la portada de bienvenida del Laboratorio de la Elipse">
+            <span>🪐 Laboratorio de la Elipse</span>
+            <span class="insignia-steam">FERIA STEAM+</span>
+        </button>
+        <div class="nav-botones">
+            <span class="chip-nav-autoras">
+                👩‍🔬 Valeria · Salomé · Gabriela
+            </span>
+            <button type="button" id="btnAbrirQR" class="btn-volver-menu" title="Escanear Código QR en Celular" aria-label="Escanear Código QR en Celular">📱 <span class="btn-texto-nav">QR</span></button>
+            <button type="button" id="btnPantallaCompleta" class="btn-volver-menu" title="Modo Pantalla Completa (F11)" aria-label="Modo Pantalla Completa">⛶ <span class="btn-texto-nav">Pantalla Completa</span></button>
+            <button type="button" id="btnAbrirDocs" class="btn-volver-menu" title="Documentación oficial y Ficha Técnica" aria-label="Documentación Oficial">📖 <span class="btn-texto-nav">Documentación</span></button>
+            <a href="pruebas/pruebas.html" class="btn-volver-menu" title="Ejecutar pruebas unitarias matemáticas" aria-label="Suite de pruebas unitarias">🧪 <span class="btn-texto-nav">Pruebas</span></a>
+            <button type="button" class="btn-volver-menu" onclick="navegarA('menu')" aria-label="Ir al menú de actividades">📋 <span class="btn-texto-nav">Menú</span></button>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL DE LA APLICACIÓN -->
+    <main class="contenedor-app">
+
+        <!-- ════════════════════════════════════════════════════════
+             PANTALLA 1: BIENVENIDA CÓSMICA
+        ════════════════════════════════════════════════════════ -->
+        <section id="pantallaBienvenida" class="pantalla activa">
+            <div class="fondo-animado">
+                <!-- Capa de estrellas titilantes -->
+                <div class="estrellas" id="capaEstrellas"></div>
+
+                <!-- Símbolos matemáticos flotantes -->
+                <div class="simbolos-flotantes">
+                    <span class="simbolo-mat" style="top: 12%; left: 8%;">π</span>
+                    <span class="simbolo-mat" style="top: 25%; right: 12%;">a² = b² + c²</span>
+                    <span class="simbolo-mat" style="bottom: 18%; left: 14%;">√</span>
+                    <span class="simbolo-mat" style="top: 65%; right: 18%;">e = c/a</span>
+                    <span class="simbolo-mat" style="bottom: 10%; right: 8%;">LR = 2b²/a</span>
+                    <span class="simbolo-mat" style="top: 15%; left: 45%;">∞</span>
+                </div>
+
+                <!-- Título animado y nombres de autoras en blanco puro brillante -->
+                <h1 class="titulo-rebote">🪐 Laboratorio de la Elipse</h1>
+                <p class="nombres-autoras-portada" style="color: #ffffff !important; font-size: clamp(1.3rem, 3.2vw, 1.65rem); font-weight: 800; text-align: center; margin: 10px 0 6px 0; letter-spacing: 0.5px; text-shadow: 0 0 16px rgba(255, 255, 255, 0.8), 0 2px 10px rgba(56, 189, 248, 0.9); z-index: 3;">
+                    Valeria Hinestroza · Salomé Jiménez · Gabriela Muñoz
+                </p>
+                <p class="subtitulo-portada" style="color: #ffffff !important; font-size: clamp(1rem, 2.2vw, 1.25rem); font-weight: 600; text-align: center; margin-bottom: 16px; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9); opacity: 0.95; z-index: 3;">
+                    Feria STEAM+ · Grado Décimo · Tecnología e Informática y Matemáticas
+                </p>
+
+                <!-- Órbita planetaria SVG interactiva (Sol en un foco, planeta orbitando) -->
+                <div class="contenedor-orbita">
+                    <svg viewBox="0 0 320 200" width="100%" height="100%" role="img" aria-label="Simulación didáctica de una órbita elíptica con el Sol en un foco y un planeta en trayectoria">
+                        <title>Órbita Elíptica Planetaria</title>
+                        <!-- Elipses concéntricas de fondo -->
+                        <g class="elipses-concentricas">
+                            <ellipse cx="160" cy="100" rx="140" ry="75" fill="none" stroke="rgba(56, 189, 248, 0.2)" stroke-width="1.5" stroke-dasharray="4 4" />
+                            <ellipse cx="160" cy="100" rx="110" ry="55" fill="none" stroke="rgba(139, 92, 246, 0.2)" stroke-width="1.5" />
+                        </g>
+
+                        <!-- Órbita principal de la Tierra -->
+                        <path id="orbitaTierra" d="M 40,100 a 120,65 0 1,0 240,0 a 120,65 0 1,0 -240,0" fill="none" stroke="#38bdf8" stroke-width="2.5" />
+
+                        <!-- Sol ubicado exactamente en un foco: c = √(120² - 65²) ≈ 101 px desde el centro -->
+                        <circle cx="210" cy="100" r="14" fill="#fbbf24">
+                            <animate attributeName="r" values="13;15;13" dur="2s" repeatCount="indefinite" />
+                        </circle>
+                        <circle cx="210" cy="100" r="20" fill="none" stroke="rgba(251, 191, 36, 0.4)" stroke-width="3">
+                            <animate attributeName="r" values="18;24;18" dur="2s" repeatCount="indefinite" />
+                        </circle>
+                        <text x="210" y="80" fill="#fef08a" font-size="11" font-weight="bold" text-anchor="middle">☀️ Sol (Foco F)</text>
+
+                        <!-- Planeta Tierra que recorre la trayectoria elíptica -->
+                        <circle r="7" fill="#38bdf8" stroke="#ffffff" stroke-width="1.5">
+                            <animateMotion dur="8s" repeatCount="indefinite" rotate="auto">
+                                <mpath href="#orbitaTierra" />
+                            </animateMotion>
+                        </circle>
+                    </svg>
+                </div>
+
+                <!-- Mascota Mati con globo de bienvenida -->
+                <div class="contenedor-mati">
+                    <svg class="mati-svg" viewBox="0 0 100 100" role="img" aria-label="Mascota interactiva Mati, el cohete matemático">
+                        <title>Mascota Mati</title>
+                        <!-- Cohete amigable Mati -->
+                        <ellipse cx="50" cy="50" rx="22" ry="34" fill="#38bdf8" />
+                        <ellipse cx="50" cy="45" rx="14" ry="20" fill="#ffffff" />
+                        <!-- Ojos felices -->
+                        <circle cx="44" cy="42" r="3.5" fill="#0f172a" />
+                        <circle cx="56" cy="42" r="3.5" fill="#0f172a" />
+                        <path d="M 44,52 Q 50,58 56,52" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round" />
+                        <!-- Alitas y fuego -->
+                        <path d="M 28,55 L 14,72 L 30,68 Z" fill="#ef4444" />
+                        <path d="M 72,55 L 86,72 L 70,68 Z" fill="#ef4444" />
+                        <path d="M 42,84 Q 50,98 58,84 Z" fill="#f59e0b">
+                            <animate attributeName="d" values="M 42,84 Q 50,98 58,84 Z; M 42,84 Q 50,105 58,84 Z; M 42,84 Q 50,98 58,84 Z" dur="0.4s" repeatCount="indefinite" />
+                        </path>
+                    </svg>
+                    <div class="globo-mati">
+                        ¡Hola! Soy <strong>Mati</strong> 🚀. ¡Hoy descubriremos la magia de las elipses con Valeria, Salomé y Gabriela!
+                    </div>
+                </div>
+
+                <!-- Botón de Inicio -->
+                <button id="btnEmpezar" class="btn btn-empezar">
+                    ✨ ¡Empezar a Explorar!
+                </button>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════════════════════
+             PANTALLA 2: MENÚ DE ACTIVIDADES
+        ════════════════════════════════════════════════════════ -->
+        <section id="pantallaMenu" class="pantalla">
+            <div style="background: rgba(255, 255, 255, 0.08); border: 1.5px solid rgba(56, 189, 248, 0.3); border-radius: 14px; padding: 12px 18px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <span style="color: #f8fafc; font-weight: 700; font-size: clamp(0.9rem, 2vw, 1.05rem);">
+                    Equipo de Trabajo: <strong style="color: #38bdf8;">Valeria Hinestroza · Salomé Jiménez · Gabriela Muñoz</strong>
+                </span>
+                <span style="background: #38bdf8; color: #0f172a; padding: 4px 10px; border-radius: 12px; font-weight: 800; font-size: 0.8rem;">Grado 10° STEAM+</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+                <div>
+                    <h2 style="color: #ffffff; font-size: clamp(1.4rem, 3.5vw, 2rem); font-weight: 800;">🎯 ¿Qué quieres descubrir hoy?</h2>
+                    <p style="color: #94a3b8; font-size: clamp(0.95rem, 2vw, 1.1rem);">Selecciona una actividad para comenzar tu viaje por las elipses.</p>
+                </div>
+                <button id="btnVolverBienvenida" class="btn btn-secundario">← Portada</button>
+            </div>
+
+            <nav class="cuadricula-menu" aria-label="Menú de actividades del Laboratorio de la Elipse">
+                <!-- Tarjeta 1: Explora -->
+                <div class="tarjeta-menu" id="tarjetaExplora" tabindex="0" role="button" aria-label="Actividad 1: Explora la Elipse. Mueve los controles en vivo y observa cómo cambian los focos, vértices y achatamiento.">
+                    <div class="icono-tarjeta">🔭</div>
+                    <h3>Explora la Elipse</h3>
+                    <p>Mueve los controles en vivo y observa cómo cambian los focos, los vértices y el achatamiento.</p>
+                    <span style="color: #38bdf8; font-weight: 700; margin-top: auto;">¡Mover controles →</span>
+                </div>
+
+                <!-- Tarjeta 2: Analiza -->
+                <div class="tarjeta-menu" id="tarjetaAnaliza" tabindex="0" role="button" aria-label="Actividad 2: Analiza una Ecuación. Escribe cualquier ecuación canónica o general y descubre todos sus elementos al instante.">
+                    <div class="icono-tarjeta">🧮</div>
+                    <h3>Analiza una Ecuación</h3>
+                    <p>Escribe cualquier ecuación canónica o general y descubre todos sus elementos al instante.</p>
+                    <span style="color: #38bdf8; font-weight: 700; margin-top: auto;">¡Ingresar ecuación →</span>
+                </div>
+
+                <!-- Tarjeta 3: Arma -->
+                <div class="tarjeta-menu" id="tarjetaArma" tabindex="0" role="button" aria-label="Actividad 3: Arma tu Elipse. Ingresa vértices o ejes y encuentra la ecuación paso a paso como en el libro de matemáticas.">
+                    <div class="icono-tarjeta">🧩</div>
+                    <h3>Arma tu Elipse</h3>
+                    <p>¿Tienes vértices o ejes? Encuentra la ecuación paso a paso como en el libro de matemáticas.</p>
+                    <span style="color: #38bdf8; font-weight: 700; margin-top: auto;">¡Construir elipse →</span>
+                </div>
+
+                <!-- Tarjeta 4: Retos -->
+                <div class="tarjeta-menu" id="tarjetaRetos" tabindex="0" role="button" aria-label="Actividad 4: Retos de Mati. Pon a prueba tus conocimientos en 8 retos interactivos y gana estrellas STEAM+.">
+                    <div class="icono-tarjeta">🎯</div>
+                    <h3>Retos de Mati</h3>
+                    <p>Pon a prueba tus conocimientos en 8 retos interactivos y gana estrellas STEAM+.</p>
+                    <span style="color: #38bdf8; font-weight: 700; margin-top: auto;">¡Aceptar el reto →</span>
+                </div>
+            </nav>
+        </section>
+
+        <!-- ════════════════════════════════════════════════════════
+             PANTALLA 3: ACTIVIDAD 1 - EXPLORA LA ELIPSE
+        ════════════════════════════════════════════════════════ -->
+        <section id="pantallaExplora" class="pantalla">
+            <div class="cabecera-actividad">
+                <div>
+                    <h2>🔭 Explora la Elipse en Tiempo Real</h2>
+                    <p class="instruccion-actividad">Ajusta el centro (h, k), los semiejes (a, b) y la orientación.</p>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button class="btn btn-ayuda-actividad" data-ayuda="explora" type="button" title="¿Cómo funciona esta actividad?">❓ ¿Cómo funciona?</button>
+                    <button class="btn btn-volver-menu">🏠 Menú</button>
+                </div>
+            </div>
+
+            <!-- Globo de Mati -->
+            <div class="caja-alerta info">
+                <span style="font-size: 1.8rem;">🚀</span>
+                <div id="globoMatiExplora">
+                    ¡Mueve los deslizadores! Mira qué ocurre con la elipse cuando varias a o b.
+                </div>
+            </div>
+
+            <!-- Fila Principal: Controles (Izquierda) vs Gráfica (Derecha) equilibradas -->
+            <div class="layout-actividad">
+                <!-- Columna Izquierda: Controles -->
+                <div class="columna-controles">
+                    <div class="tarjeta-blanca">
+                        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                                <h3 style="color: #ffffff; font-size: 1.25rem; font-weight: 800;">⚙️ Parámetros de la Elipse</h3>
+                                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                                    <button id="btnResetExplora" class="btn btn-secundario" type="button" title="Restablecer valores iniciales">🔄 Restablecer</button>
+                                    <button id="btnEjemploExplora" class="btn btn-ejemplo">💡 Siguiente Ejemplo</button>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <label for="selectEjemplosExplora" style="color: #38bdf8; font-size: 0.82rem; font-weight: 700; white-space: nowrap;">📚 10 Ejemplos Guiados:</label>
+                                <select id="selectEjemplosExplora" style="flex: 1; padding: 6px 10px; font-size: 0.85rem; border-radius: 8px; background: #0f172a; color: #ffffff; border: 1.5px solid #334155;"></select>
+                            </div>
+                        </div>
+
+                        <!-- Centro h -->
+                        <div class="grupo-control">
+                            <div class="fila-control">
+                                <label for="sliderH" class="etiqueta-control">Centro X (h):</label>
+                                <span class="valor-badge" id="valH">0</span>
+                            </div>
+                            <input type="range" id="sliderH" min="-8" max="8" step="0.5" value="0" aria-label="Coordenada X del centro (h)" aria-valuemin="-8" aria-valuemax="8" aria-valuenow="0" aria-valuetext="0">
+                        </div>
+
+                        <!-- Centro k -->
+                        <div class="grupo-control" style="margin-top: 10px;">
+                            <div class="fila-control">
+                                <label for="sliderK" class="etiqueta-control">Centro Y (k):</label>
+                                <span class="valor-badge" id="valK">0</span>
+                            </div>
+                            <input type="range" id="sliderK" min="-8" max="8" step="0.5" value="0" aria-label="Coordenada Y del centro (k)" aria-valuemin="-8" aria-valuemax="8" aria-valuenow="0" aria-valuetext="0">
+                        </div>
+
+                        <!-- Semieje a -->
+                        <div class="grupo-control" style="margin-top: 10px;">
+                            <div class="fila-control">
+                                <label for="sliderA" class="etiqueta-control">Semieje Mayor (a):</label>
+                                <span class="valor-badge" id="valA">5</span>
+                            </div>
+                            <input type="range" id="sliderA" min="1" max="10" step="0.1" value="5" aria-label="Semieje mayor (a)" aria-valuemin="1" aria-valuemax="10" aria-valuenow="5" aria-valuetext="5">
+                        </div>
+
+                        <!-- Semieje b -->
+                        <div class="grupo-control" style="margin-top: 10px;">
+                            <div class="fila-control">
+                                <label for="sliderB" class="etiqueta-control">Semieje Menor (b):</label>
+                                <span class="valor-badge" id="valB">3</span>
+                            </div>
+                            <input type="range" id="sliderB" min="1" max="10" step="0.1" value="3" aria-label="Semieje menor (b)" aria-valuemin="1" aria-valuemax="10" aria-valuenow="3" aria-valuetext="3">
+                        </div>
+
+                        <!-- Orientación -->
+                        <div style="margin-top: 14px;">
+                            <span class="etiqueta-control">¿Hacia dónde se estira la elipse?</span>
+                            <div class="selector-orientacion">
+                                <button type="button" id="btnOrientacionH" class="btn-opcion seleccionado">
+                                    ↔ Horizontal (eje X)
+                                </button>
+                                <button type="button" id="btnOrientacionV" class="btn-opcion">
+                                    ↕ Vertical (eje Y)
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Medidor de Achatamiento -->
+                        <div class="caja-achatamiento">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
+                                <strong style="color: #38bdf8;">📏 Medidor de Achatamiento (e = c/a):</strong>
+                                <span id="valorExcentricidad" style="font-weight: 800; color: #38bdf8;">e = 0.8000</span>
+                            </div>
+                            <div class="barra-achatamiento-contenedor">
+                                <div id="barraAchatamiento" class="barra-achatamiento-progreso"></div>
+                            </div>
+                            <div class="medidor-etiquetas">
+                                <span>0 (Circunferencia)</span>
+                                <span>0.5 (Ovalada)</span>
+                                <span>1 (Muy achatada)</span>
+                            </div>
+                            <div class="achatamiento-diagnostico">
+                                <span>Forma:</span>
+                                <span id="diagnosticoAchatamiento" class="insignia-achatamiento" style="background: #8b5cf6;">Bien achatada</span>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 16px;">
+                            <button id="btnCompararExplora" class="btn btn-primario" style="width: 100%;">
+                                📊 Comparar excentricidades (a²=16, b²=12, 9, 6, 2)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Gráfica Canvas y Ecuación -->
+                <div class="columna-grafica">
+                    <div class="tarjeta-blanca" style="display: flex; flex-direction: column; gap: 12px;">
+                        <!-- Banner destacado cuando el modo comparación está activo -->
+                        <div id="bannerModoComparacion" style="display: none; background: rgba(56, 189, 248, 0.15); border: 1.5px solid #38bdf8; border-radius: 10px; padding: 8px 12px; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                            <span style="color: #38bdf8; font-weight: 700; font-size: 0.88rem;">🔬 Comparando 4 elipses (a² = 16 constante · b² = 12, 9, 6, 2)</span>
+                            <button id="btnSalirComparacion" class="btn" style="padding: 4px 12px; font-size: 0.82rem; background: #0284c7; color: white; border: none; border-radius: 6px; cursor: pointer;">✕ Volver a mi elipse</button>
+                        </div>
+
+                        <!-- Toolbar de toggles -->
+                        <div class="toolbar-elementos">
+                            <label class="item-toggle"><input type="checkbox" id="chkCentro" checked> 🟡 Centro C</label>
+                            <label class="item-toggle"><input type="checkbox" id="chkFocos" checked> 🔴 Focos F, F'</label>
+                            <label class="item-toggle"><input type="checkbox" id="chkVertices" checked> 🟣 Vértices A, A'</label>
+                            <label class="item-toggle"><input type="checkbox" id="chkExtremos" checked> 🟢 Extremos B, B'</label>
+                            <label class="item-toggle"><input type="checkbox" id="chkEjeFocal" checked> ➖ Eje focal</label>
+                            <label class="item-toggle"><input type="checkbox" id="chkLadoRecto" checked> 📐 Lado Recto</label>
+                        </div>
+
+                        <!-- Definición geométrica: hilo del jardinero d1 + d2 = 2a -->
+                        <div class="panel-jardinero">
+                            <label class="item-toggle toggle-jardinero">
+                                <input type="checkbox" id="chkJardinero"> 🧵 Mostrar hilo del jardinero: d₁ + d₂ = 2a
+                            </label>
+                            <div id="controlesJardinero" style="display: none;">
+                                <div class="fila-control">
+                                    <span class="etiqueta-control">Mover el punto P (ángulo t):</span>
+                                    <span class="valor-badge" id="valAnguloP">45°</span>
+                                </div>
+                                <input type="range" id="sliderAnguloP" min="0" max="360" step="1" value="45" aria-label="Ángulo del punto P sobre la elipse">
+                                <button id="btnAnimarP" class="btn btn-secundario" type="button">▶ Recorrer la elipse</button>
+                                <div class="lectura-jardinero" id="lecturaJardinero" aria-live="polite"></div>
+                                <p class="nota-jardinero">💡 También puedes arrastrar el punto P sobre la gráfica. Sin importar dónde esté P, la suma de las dos distancias a los focos siempre es 2a.</p>
+                            </div>
+                        </div>
+
+                        <!-- Canvas -->
+                        <div class="canvas-contenedor">
+                            <canvas id="canvasExplora" width="500" height="500"></canvas>
+                        </div>
+
+                        <button class="btn btn-secundario btn-descargar-png" type="button" data-canvas="canvasExplora" data-ecuacion="ecuacionExplora" data-nombre="elipse-explora">📷 Descargar gráfica (PNG)</button>
+
+                        <!-- Ecuación en vivo -->
+                        <div class="ecuacion-destacada" id="ecuacionExplora" style="margin-bottom: 0;">
+                            (x − 0)²/25 + (y − 0)²/9 = 1
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fila Inferior de Ancho Completo: Elementos y Comparación -->
+            <div class="panel-resultados-ancho-completo">
+                <h4 style="color: #ffffff; margin-bottom: 12px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
+                    📋 Elementos Calculados de la Elipse:
+                </h4>
+                <div class="grilla-propiedades">
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Centro (h, k)</div>
+                        <div class="propiedad-valor" id="propCentro">(0, 0)</div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Semieje mayor (a)</div>
+                        <div class="propiedad-valor" id="propA">5</div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Semieje menor (b)</div>
+                        <div class="propiedad-valor" id="propB">3</div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Distancia focal (c)</div>
+                        <div class="propiedad-valor" id="propC">4</div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Eje Mayor (2a)</div>
+                        <div class="propiedad-valor" id="propEjeMayor">10</div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Eje Menor (2b)</div>
+                        <div class="propiedad-valor" id="propEjeMenor">6</div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Lado Recto (LR)</div>
+                        <div class="propiedad-valor" id="propLadoRecto">3.6</div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Eje Focal</div>
+                        <div class="propiedad-valor" id="propEjeFocal">y = 0</div>
+                    </div>
+                    <div class="propiedad-item" style="grid-column: span 2;">
+                        <div class="propiedad-nombre">Focos F' y F</div>
+                        <div class="propiedad-valor" id="propFocos">(−4, 0) y (4, 0)</div>
+                    </div>
+                    <div class="propiedad-item" style="grid-column: span 2;">
+                        <div class="propiedad-nombre">Vértices A' y A</div>
+                        <div class="propiedad-valor" id="propVertices">(−5, 0) y (5, 0)</div>
+                    </div>
+                    <div class="propiedad-item" style="grid-column: span 2;">
+                        <div class="propiedad-nombre">Extremos Menores B' y B</div>
+                        <div class="propiedad-valor" id="propExtremos">(0, −3) y (0, 3)</div>
+                    </div>
+                </div>
+
+                <!-- Tabla de comparación multielipse con scroll horizontal responsivo -->
+                <div id="contenedorComparacion" style="display: none; margin-top: 20px;">
+                    <h4 style="color: #38bdf8; margin-bottom: 8px;">🔬 Comparación de Excentricidades con a² = 16 (a = 4):</h4>
+                    <div class="tabla-wrapper">
+                        <table class="tabla-comparacion">
+                            <thead>
+                                <tr>
+                                    <th>Elipse</th>
+                                    <th>a²</th>
+                                    <th>b²</th>
+                                    <th>c = √(a²−b²)</th>
+                                    <th>Excentricidad (e)</th>
+                                    <th>Achatamiento</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cuerpoTablaComparacion"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════════════════════
+             PANTALLA 4: ACTIVIDAD 2 - ANALIZA UNA ECUACIÓN
+        ════════════════════════════════════════════════════════ -->
+        <section id="pantallaAnaliza" class="pantalla">
+            <div class="cabecera-actividad">
+                <div>
+                    <h2>🧮 Analiza Cualquier Ecuación de la Elipse</h2>
+                    <p class="instruccion-actividad">Descubre la orientación, focos, vértices y lado recto a partir de su ecuación.</p>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button class="btn btn-ayuda-actividad" data-ayuda="analiza" type="button" title="¿Cómo funciona esta actividad?">❓ ¿Cómo funciona?</button>
+                    <button class="btn btn-volver-menu">🏠 Menú</button>
+                </div>
+            </div>
+
+            <!-- Mensaje de Mati -->
+            <div class="caja-alerta info">
+                <span style="font-size: 1.8rem;">🤖</span>
+                <div id="globoMatiAnaliza">
+                    Ingresa los denominadores. ¡El mayor de los dos siempre corresponde a a²!
+                </div>
+            </div>
+
+            <div id="alertaAnaliza" class="caja-alerta" style="display: none;"></div>
+
+            <div class="layout-actividad">
+                <!-- Columna Controles -->
+                <div class="columna-controles">
+                    <div class="tarjeta-blanca">
+                        <!-- Banco de 11 Ejemplos del Libro -->
+                        <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--color-borde); border-radius: 12px; padding: 10px 12px; margin-bottom: 14px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap; gap: 6px;">
+                                <label for="selectEjemplosAnaliza" style="color: #38bdf8; font-size: 0.85rem; font-weight: 700;">📚 Banco de 11 Ejemplos del Libro:</label>
+                                <span style="font-size: 0.75rem; color: #94a3b8;">Canónicas y Generales</span>
+                            </div>
+                            <select id="selectEjemplosAnaliza" style="width: 100%; padding: 8px 10px; font-size: 0.85rem; border-radius: 8px; background: #0f172a; color: #ffffff; border: 1.5px solid #334155;"></select>
+                        </div>
+
+                        <!-- Pestañas de modo -->
+                        <div style="display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;">
+                            <button type="button" id="tabFormaCanonica" class="btn-opcion seleccionado" style="flex: 1; min-width: 140px;">
+                                Forma Canónica (h, k)
+                            </button>
+                            <button type="button" id="tabFormaGeneral" class="btn-opcion" style="flex: 1; min-width: 140px;">
+                                Forma Ax² + By² = C
+                            </button>
+                        </div>
+
+                        <!-- Sección Forma Canónica -->
+                        <div id="seccionCanonica">
+                            <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 12px;">
+                                Ecuación: <code>(x − h)² / denX + (y − k)² / denY = 1</code>
+                            </p>
+                            <div class="subgrid-2-cols">
+                                <div>
+                                    <label for="inputAnalizaH" class="etiqueta-control">Centro X (h):</label>
+                                    <input type="text" id="inputAnalizaH" value="2" placeholder="ej. 2 o 3/2">
+                                </div>
+                                <div>
+                                    <label for="inputAnalizaK" class="etiqueta-control">Centro Y (k):</label>
+                                    <input type="text" id="inputAnalizaK" value="-3" placeholder="ej. -3 o -1/2">
+                                </div>
+                                <div>
+                                    <label for="inputAnalizaDenX" class="etiqueta-control">Denominador X (denX):</label>
+                                    <input type="text" id="inputAnalizaDenX" value="9" placeholder="ej. 9, 36 o 25">
+                                </div>
+                                <div>
+                                    <label for="inputAnalizaDenY" class="etiqueta-control">Denominador Y (denY):</label>
+                                    <input type="text" id="inputAnalizaDenY" value="5" placeholder="ej. 5 o 100">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sección Forma General -->
+                        <div id="seccionGeneral" style="display: none;">
+                            <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 12px;">
+                                Ecuación: <code>A·x² + B·y² = C</code> (con A, B, C > 0)
+                            </p>
+                            <div class="subgrid-3-cols">
+                                <div>
+                                    <label for="inputGeneralA" class="etiqueta-control">Coeficiente A:</label>
+                                    <input type="text" id="inputGeneralA" value="4" placeholder="ej. 4">
+                                </div>
+                                <div>
+                                    <label for="inputGeneralB" class="etiqueta-control">Coeficiente B:</label>
+                                    <input type="text" id="inputGeneralB" value="9" placeholder="ej. 9">
+                                </div>
+                                <div>
+                                    <label for="inputGeneralC" class="etiqueta-control">Término C:</label>
+                                    <input type="text" id="inputGeneralC" value="36" placeholder="ej. 36">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap;">
+                            <button id="btnCalcularAnaliza" class="btn btn-primario" style="flex: 2; min-width: 160px;">
+                                🔍 Analizar Ecuación
+                            </button>
+                            <button id="btnEjemploAnaliza" class="btn btn-ejemplo" style="flex: 1; min-width: 100px;">
+                                💡 Ejemplo
+                            </button>
+                            <button id="btnLimpiarAnaliza" class="btn btn-secundario" type="button" title="Restablecer valores iniciales">
+                                🔄 Restablecer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Gráfica -->
+                <div class="columna-grafica">
+                    <div class="tarjeta-blanca" style="display: flex; flex-direction: column; gap: 12px;">
+                        <div class="toolbar-elementos">
+                            <label class="item-toggle"><input type="checkbox" id="chkCentroAnaliza" checked> 🟡 Centro C</label>
+                            <label class="item-toggle"><input type="checkbox" id="chkFocosAnaliza" checked> 🔴 Focos</label>
+                            <label class="item-toggle"><input type="checkbox" id="chkVerticesAnaliza" checked> 🟣 Vértices</label>
+                            <label class="item-toggle"><input type="checkbox" id="chkExtremosAnaliza" checked> 🟢 Extremos</label>
+                            <label class="item-toggle"><input type="checkbox" id="chkEjeFocalAnaliza" checked> ➖ Eje focal</label>
+                            <label class="item-toggle"><input type="checkbox" id="chkLadoRectoAnaliza" checked> 📐 Lado Recto</label>
+                        </div>
+                        <div class="canvas-contenedor">
+                            <canvas id="canvasAnaliza" width="500" height="500"></canvas>
+                        </div>
+                        <button class="btn btn-secundario btn-descargar-png" type="button" data-canvas="canvasAnaliza" data-ecuacion="ecuacionAnaliza" data-nombre="elipse-analiza">📷 Descargar gráfica (PNG)</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel de Resultados de Analizar en ancho completo -->
+            <div id="panelResultadosAnaliza" class="panel-resultados-ancho-completo" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                    <h4 style="color: #ffffff; margin: 0; font-size: 1.2rem;">Orientación Detectada:</h4>
+                    <span id="orientacionAnaliza" class="valor-badge">Horizontal</span>
+                </div>
+
+                <div class="ecuacion-destacada" id="ecuacionAnaliza"></div>
+
+                <!-- Procedimiento matemático detallado paso a paso -->
+                <div class="caja-pasos" id="cajaPasosAnaliza" style="display: none;"></div>
+
+                <div class="grilla-propiedades">
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Centro (h, k)</div>
+                        <div class="propiedad-valor" id="resCentro"></div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Semieje a</div>
+                        <div class="propiedad-valor" id="resA"></div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Semieje b</div>
+                        <div class="propiedad-valor" id="resB"></div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Distancia focal c</div>
+                        <div class="propiedad-valor" id="resC"></div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Eje Mayor (2a)</div>
+                        <div class="propiedad-valor" id="resEjeMayor"></div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Eje Menor (2b)</div>
+                        <div class="propiedad-valor" id="resEjeMenor"></div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Lado Recto (LR)</div>
+                        <div class="propiedad-valor" id="resLadoRecto"></div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Excentricidad (e)</div>
+                        <div class="propiedad-valor" id="resExcentricidad"></div>
+                    </div>
+                    <div class="propiedad-item" style="grid-column: span 2;">
+                        <div class="propiedad-nombre">Eje Focal</div>
+                        <div class="propiedad-valor" id="resEjeFocal"></div>
+                    </div>
+                    <div class="propiedad-item" style="grid-column: span 2;">
+                        <div class="propiedad-nombre">Focos F' y F</div>
+                        <div class="propiedad-valor" id="resFocos"></div>
+                    </div>
+                    <div class="propiedad-item" style="grid-column: span 2;">
+                        <div class="propiedad-nombre">Vértices A' y A</div>
+                        <div class="propiedad-valor" id="resVertices"></div>
+                    </div>
+                    <div class="propiedad-item" style="grid-column: span 2;">
+                        <div class="propiedad-nombre">Extremos Menor B' y B</div>
+                        <div class="propiedad-valor" id="resExtremos"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════════════════════
+             PANTALLA 5: ACTIVIDAD 3 - ARMA TU ELIPSE
+        ════════════════════════════════════════════════════════ -->
+        <section id="pantallaArma" class="pantalla">
+            <div class="cabecera-actividad">
+                <div>
+                    <h2>🧩 Arma tu Elipse Paso a Paso</h2>
+                    <p class="instruccion-actividad">Introduce los datos conocidos y obtén la deducción completa de la ecuación.</p>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button class="btn btn-ayuda-actividad" data-ayuda="arma" type="button" title="¿Cómo funciona esta actividad?">❓ ¿Cómo funciona?</button>
+                    <button class="btn btn-volver-menu">🏠 Menú</button>
+                </div>
+            </div>
+
+            <!-- Mensaje de Mati -->
+            <div class="caja-alerta info">
+                <span style="font-size: 1.8rem;">🚀</span>
+                <div id="globoMatiArma">
+                    Elige qué datos tienes. Resolveremos paso a paso como en la clase de matemáticas.
+                </div>
+            </div>
+
+            <div id="alertaArma" class="caja-alerta" style="display: none;"></div>
+
+            <div class="layout-actividad">
+                <div class="columna-controles">
+                    <div class="tarjeta-blanca">
+                        <h3 style="color: #ffffff; margin-bottom: 12px; font-weight: 800;">¿Qué datos tienes para construir la elipse?</h3>
+                        
+                        <!-- Banco de 15 Ejemplos Guiados -->
+                        <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--color-borde); border-radius: 12px; padding: 10px 12px; margin-bottom: 14px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap; gap: 6px;">
+                                <label for="selectEjemplosArma" style="color: #38bdf8; font-size: 0.85rem; font-weight: 700;">🧩 Ejemplos Guiados para este Caso:</label>
+                                <span style="font-size: 0.75rem; color: #94a3b8;">5 por cada caso (15 total)</span>
+                            </div>
+                            <select id="selectEjemplosArma" style="width: 100%; padding: 8px 10px; font-size: 0.85rem; border-radius: 8px; background: #0f172a; color: #ffffff; border: 1.5px solid #334155;"></select>
+                        </div>
+
+                        <!-- Selector de 3 modalidades -->
+                        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px;">
+                            <label class="opcion-radio-card">
+                                <input type="radio" name="tipoDatosArma" value="a" checked>
+                                <span><strong style="color: #38bdf8;">a)</strong> Centro, longitud del eje mayor, longitud del eje menor y orientación.</span>
+                            </label>
+                            <label class="opcion-radio-card">
+                                <input type="radio" name="tipoDatosArma" value="b">
+                                <span><strong style="color: #38bdf8;">b)</strong> Los dos vértices del eje mayor y la longitud del lado recto.</span>
+                            </label>
+                            <label class="opcion-radio-card">
+                                <input type="radio" name="tipoDatosArma" value="c">
+                                <span><strong style="color: #38bdf8;">c)</strong> Los dos vértices del eje mayor y un extremo del eje menor.</span>
+                            </label>
+                        </div>
+
+                        <!-- Formulario Caso A -->
+                        <div id="formArmaA">
+                            <div class="subgrid-2-cols">
+                                <div>
+                                    <label for="inputArmaH" class="etiqueta-control">Centro X (h):</label>
+                                    <input type="text" id="inputArmaH" value="-2">
+                                </div>
+                                <div>
+                                    <label for="inputArmaK" class="etiqueta-control">Centro Y (k):</label>
+                                    <input type="text" id="inputArmaK" value="5">
+                                </div>
+                                <div>
+                                    <label for="inputArmaEjeMayor" class="etiqueta-control">Longitud Eje Mayor (2a):</label>
+                                    <input type="text" id="inputArmaEjeMayor" value="10">
+                                </div>
+                                <div>
+                                    <label for="inputArmaEjeMenor" class="etiqueta-control">Longitud Eje Menor (2b):</label>
+                                    <input type="text" id="inputArmaEjeMenor" value="8">
+                                </div>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <label for="selectArmaOrientacion" class="etiqueta-control">Orientación:</label>
+                                <select id="selectArmaOrientacion">
+                                    <option value="vertical" selected>Vertical (eje focal paralelo a Y)</option>
+                                    <option value="horizontal">Horizontal (eje focal paralelo a X)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Formulario Caso B -->
+                        <div id="formArmaB" style="display: none;">
+                            <div class="subgrid-2-cols">
+                                <div>
+                                    <label for="inputArmaV1x" class="etiqueta-control">Vértice 1 X (A'):</label>
+                                    <input type="text" id="inputArmaV1x" value="3">
+                                </div>
+                                <div>
+                                    <label for="inputArmaV1y" class="etiqueta-control">Vértice 1 Y (A'):</label>
+                                    <input type="text" id="inputArmaV1y" value="6">
+                                </div>
+                                <div>
+                                    <label for="inputArmaV2x" class="etiqueta-control">Vértice 2 X (A):</label>
+                                    <input type="text" id="inputArmaV2x" value="3">
+                                </div>
+                                <div>
+                                    <label for="inputArmaV2y" class="etiqueta-control">Vértice 2 Y (A):</label>
+                                    <input type="text" id="inputArmaV2y" value="-2">
+                                </div>
+                                <div style="grid-column: 1 / -1;">
+                                    <label for="inputArmaLR" class="etiqueta-control">Longitud del Lado Recto (LR):</label>
+                                    <input type="text" id="inputArmaLR" value="6">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formulario Caso C -->
+                        <div id="formArmaC" style="display: none;">
+                            <div class="subgrid-2-cols">
+                                <div>
+                                    <label for="inputArmaCV1x" class="etiqueta-control">Vértice 1 X (A'):</label>
+                                    <input type="text" id="inputArmaCV1x" value="-5">
+                                </div>
+                                <div>
+                                    <label for="inputArmaCV1y" class="etiqueta-control">Vértice 1 Y (A'):</label>
+                                    <input type="text" id="inputArmaCV1y" value="2">
+                                </div>
+                                <div>
+                                    <label for="inputArmaCV2x" class="etiqueta-control">Vértice 2 X (A):</label>
+                                    <input type="text" id="inputArmaCV2x" value="3">
+                                </div>
+                                <div>
+                                    <label for="inputArmaCV2y" class="etiqueta-control">Vértice 2 Y (A):</label>
+                                    <input type="text" id="inputArmaCV2y" value="2">
+                                </div>
+                                <div>
+                                    <label for="inputArmaBx" class="etiqueta-control">Extremo Menor X (B):</label>
+                                    <input type="text" id="inputArmaBx" value="-1">
+                                </div>
+                                <div>
+                                    <label for="inputArmaBy" class="etiqueta-control">Extremo Menor Y (B):</label>
+                                    <input type="text" id="inputArmaBy" value="4">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap;">
+                            <button id="btnCalcularArma" class="btn btn-primario" style="flex: 2; min-width: 160px;">
+                                ⚙️ Armar Ecuación
+                            </button>
+                            <button id="btnEjemploArma" class="btn btn-ejemplo" style="flex: 1; min-width: 100px;">
+                                💡 Ejemplo
+                            </button>
+                            <button id="btnLimpiarArma" class="btn btn-secundario" type="button" title="Restablecer valores iniciales">
+                                🔄 Restablecer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Gráfica -->
+                <div class="columna-grafica">
+                    <div class="tarjeta-blanca" style="display: flex; flex-direction: column; gap: 12px;">
+                        <div class="toolbar-elementos">
+                            <label class="item-toggle"><input type="checkbox" id="chkCentroArma" checked> 🟡 Centro</label>
+                            <label class="item-toggle"><input type="checkbox" id="chkFocosArma" checked> 🔴 Focos</label>
+                            <label class="item-toggle"><input type="checkbox" id="chkVerticesArma" checked> 🟣 Vértices</label>
+                            <label class="item-toggle"><input type="checkbox" id="chkExtremosArma" checked> 🟢 Extremos</label>
+                            <label class="item-toggle"><input type="checkbox" id="chkEjeFocalArma" checked> ➖ Eje focal</label>
+                            <label class="item-toggle"><input type="checkbox" id="chkLadoRectoArma" checked> 📐 Lado Recto</label>
+                        </div>
+                        <div class="canvas-contenedor">
+                            <canvas id="canvasArma" width="500" height="500"></canvas>
+                        </div>
+                        <button class="btn btn-secundario btn-descargar-png" type="button" data-canvas="canvasArma" data-ecuacion="ecuacionArma" data-nombre="elipse-armada">📷 Descargar gráfica (PNG)</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel Resultados y Paso a Paso en ancho completo -->
+            <div id="panelResultadosArma" class="panel-resultados-ancho-completo" style="display: none;">
+                <h4 style="color: #ffffff; margin-bottom: 8px; font-size: 1.2rem;">Ecuación Canónica Obtenida:</h4>
+                <div class="ecuacion-destacada" id="ecuacionArma"></div>
+
+                <div class="caja-pasos" id="cajaPasosArma"></div>
+
+                <div class="grilla-propiedades" style="margin-top: 14px;">
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Centro (h, k)</div>
+                        <div class="propiedad-valor" id="resArmaCentro"></div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Semieje a</div>
+                        <div class="propiedad-valor" id="resArmaA"></div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Semieje b</div>
+                        <div class="propiedad-valor" id="resArmaB"></div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Distancia c</div>
+                        <div class="propiedad-valor" id="resArmaC"></div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Lado Recto (LR)</div>
+                        <div class="propiedad-valor" id="resArmaLR"></div>
+                    </div>
+                    <div class="propiedad-item">
+                        <div class="propiedad-nombre">Excentricidad</div>
+                        <div class="propiedad-valor" id="resArmaE"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════════════════════
+             PANTALLA 6: ACTIVIDAD 4 - RETOS DE MATI
+        ════════════════════════════════════════════════════════ -->
+        <section id="pantallaRetos" class="pantalla">
+            <div class="cabecera-actividad">
+                <div>
+                    <h2>🎯 Retos de Mati: ¡Gana tus Estrellas STEAM+!</h2>
+                    <p class="instruccion-actividad">Observa la gráfica y la ecuación generada al azar y responde la pregunta.</p>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button class="btn btn-ayuda-actividad" data-ayuda="retos" type="button" title="¿Cómo funciona esta actividad?">❓ ¿Cómo funciona?</button>
+                    <button class="btn btn-volver-menu">🏠 Menú</button>
+                </div>
+            </div>
+
+            <!-- Globo de Mati -->
+            <div class="caja-alerta info">
+                <span style="font-size: 1.8rem;">🤖</span>
+                <div id="globoMatiRetos">
+                    ¡Bienvenido al desafío! Son 8 preguntas. Si tienes dudas, pulsa el botón "Pista".
+                </div>
+            </div>
+
+            <!-- Área de Juego equilibrada -->
+            <div id="areaJuegoRetos" class="layout-actividad">
+                <div class="columna-controles">
+                    <div class="tarjeta-reto">
+                        <div class="barra-progreso-retos">
+                            <span style="font-size: 1.15rem; font-weight: 800; color: #38bdf8;">
+                                Reto <span id="numeroPreguntaActual">1</span> de <span id="totalPreguntas">8</span>
+                            </span>
+                            <div class="estrellas-acumuladas">
+                                <span>⭐</span>
+                                <span id="contadorEstrellas">0 / 8</span>
+                            </div>
+                        </div>
+
+                        <div class="pregunta-reto" id="textoPreguntaReto"></div>
+
+                        <p style="color: #cbd5e1; font-size: 0.95rem;">Ecuación de la elipse en el canvas:</p>
+                        <div class="ecuacion-destacada" id="ecuacionReto" style="font-size: 1.2rem; padding: 10px;"></div>
+
+                        <div style="margin: 18px 0;">
+                            <label for="inputRespuestaReto" class="etiqueta-control">Tu Respuesta:</label>
+                            <input type="text" id="inputRespuestaReto" placeholder="Escribe tu número, fracción o respuesta...">
+                        </div>
+
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button id="btnResponderReto" class="btn btn-primario" style="flex: 2; min-width: 160px;">
+                                ✅ Comprobar Respuesta
+                            </button>
+                            <button id="btnPistaReto" class="btn btn-ejemplo" style="flex: 1; min-width: 90px;">
+                                💡 Pista
+                            </button>
+                            <button id="btnSiguienteReto" class="btn btn-primario" style="display: none; flex: 2; min-width: 160px; background: #10b981;">
+                                Siguiente Reto ➔
+                            </button>
+                        </div>
+
+                        <!-- Caja de Retroalimentación -->
+                        <div id="cajaRetroalimentacion" class="caja-alerta" style="display: none; margin-top: 16px;">
+                            <div id="tituloRetroalimentacion" style="font-weight: 700; font-size: 1.05rem; margin-bottom: 6px;"></div>
+                            <div id="solucionReto" style="font-size: 0.95rem; line-height: 1.5;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="columna-grafica">
+                    <div class="tarjeta-blanca">
+                        <div class="canvas-contenedor">
+                            <canvas id="canvasRetos" width="500" height="500"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta Fin de Juego -->
+            <div id="tarjetaFinRetos" class="tarjeta-blanca" style="display: none; text-align: center; max-width: 650px; margin: 30px auto; padding: 40px 24px;">
+                <div style="font-size: 4rem; margin-bottom: 10px;">🎉</div>
+                <h2 style="color: #ffffff; font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800;">¡Ronda de Retos Completada!</h2>
+                <div id="estrellasFinales" style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin: 16px 0; color: #f59e0b;"></div>
+                <p id="mensajeFinalMati" style="font-size: clamp(1rem, 2.5vw, 1.2rem); color: #cbd5e1; line-height: 1.5; margin-bottom: 24px; font-weight: 600;"></p>
+                
+                <!-- Generador de Diploma Oficial STEAM+ para el evaluador/visitante -->
+                <div style="margin: 20px auto 24px auto; max-width: 460px; background: rgba(15, 23, 42, 0.7); border: 1.5px solid var(--color-borde-destacado); border-radius: 14px; padding: 18px; text-align: center;">
+                    <label for="inputNombreDiploma" style="display: block; font-weight: 700; color: #38bdf8; margin-bottom: 8px; font-size: 0.95rem;">
+                        🎓 ¿Quién realizó los retos? (Nombre para el Diploma):
+                    </label>
+                    <input type="text" id="inputNombreDiploma" placeholder="Escribe tu nombre o el del jurado..." style="text-align: center; font-weight: 700; margin-bottom: 12px; font-size: 1rem;">
+                    <button id="btnDescargarDiploma" class="btn btn-ejemplo" type="button" style="width: 100%; justify-content: center; font-size: 0.95rem;">
+                        🏆 Descargar Diploma Oficial STEAM+ (PNG)
+                    </button>
+                </div>
+
+                <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+                    <button id="btnReiniciarRetos" class="btn btn-primario">🔄 Jugar otra ronda</button>
+                    <button class="btn btn-volver-menu">🏠 Volver al menú</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ════════════════════════════════════════════════════════
+         MODAL 1: CÓDIGO QR PARA EL JURADO Y VISITANTES EN LA FERIA
+    ════════════════════════════════════════════════════════ -->
+    <div id="modalQR" class="modal-superpuesto" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="tituloModalQR">
+        <div class="modal-contenido modal-qr-tarjeta">
+            <button class="btn-cerrar-modal" id="btnCerrarQR" aria-label="Cerrar modal">&times;</button>
+            <div style="font-size: 2.2rem; margin-bottom: 6px;">📱</div>
+            <h3 id="tituloModalQR" style="color: #ffffff; font-size: 1.35rem; font-weight: 800; margin-bottom: 6px;">
+                ¡Pruébalo en tu Celular!
+            </h3>
+            <p style="color: #94a3b8; font-size: 0.92rem; line-height: 1.5; margin-bottom: 16px;">
+                Escanea este código con la cámara de tu teléfono para abrir el <strong>Laboratorio de la Elipse</strong> y probarlo en vivo en tu propio dispositivo.
+            </p>
+            
+            <div class="contenedor-codigo-qr">
+                <img src="img/qr-code.svg" alt="Código QR para abrir el Laboratorio de la Elipse" width="220" height="220" loading="lazy" decoding="async" style="display: block; margin: 0 auto; border-radius: 8px;">
+            </div>
+
+            <div class="caja-enlace-qr">
+                <input type="text" id="inputUrlQR" value="https://duranmgabriela05-cloud.github.io/LABORATORIO-RECTA-/" readonly>
+                <button id="btnCopiarEnlaceQR" class="btn btn-primario" type="button" title="Copiar enlace al portapapeles">📋 Copiar</button>
+            </div>
+            
+            <p style="color: #38bdf8; font-size: 0.85rem; font-weight: 600; margin-top: 14px;">
+                ✨ Diseñado por Valeria Hinestroza, Salomé Jiménez y Gabriela Muñoz · Grado 10°
+            </p>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════
+         MODAL 2: CENTRO DE DOCUMENTACIÓN OFICIAL Y FICHA TÉCNICA
+    ════════════════════════════════════════════════════════ -->
+    <div id="modalDocs" class="modal-superpuesto" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="tituloModalDocs">
+        <div class="modal-contenido modal-docs-tarjeta">
+            <button class="btn-cerrar-modal" id="btnCerrarDocs" aria-label="Cerrar modal">&times;</button>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+                <span style="font-size: 1.8rem;">📖</span>
+                <div>
+                    <h3 id="tituloModalDocs" style="color: #ffffff; font-size: 1.25rem; font-weight: 800; margin: 0;">
+                        Documentación Oficial del Proyecto
+                    </h3>
+                    <p style="color: #94a3b8; font-size: 0.86rem; margin: 2px 0 0 0;">
+                        Evidencias y Ficha Técnica según la Rúbrica de la Feria STEAM+ 2026
+                    </p>
+                </div>
+            </div>
+
+            <!-- Pestañas de navegación interna de la documentación -->
+            <div class="tabs-documentacion">
+                <button class="tab-doc activa" data-tab="docFicha">📋 Ficha Técnica</button>
+                <button class="tab-doc" data-tab="docManual">📖 Manual de Uso</button>
+                <button class="tab-doc" data-tab="docAlgoritmo">💻 Pseudocódigo</button>
+                <button class="tab-doc" data-tab="docPruebas">🧪 Tabla de Pruebas (111/111)</button>
+            </div>
+
+            <!-- Contenidos de las pestañas -->
+            <div class="cuerpo-documentacion" id="cuerpoDocumentacion">
+                <!-- Se inyecta dinámicamente con JS según la pestaña activa -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════
+         MODAL 3: AYUDA RÁPIDA "¿CÓMO FUNCIONA ESTA ACTIVIDAD?"
+    ════════════════════════════════════════════════════════ -->
+    <div id="modalAyuda" class="modal-superpuesto" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="tituloModalAyuda">
+        <div class="modal-contenido" style="max-width: 620px; text-align: left;">
+            <button class="btn-cerrar-modal" id="btnCerrarAyuda" aria-label="Cerrar modal">&times;</button>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+                <span style="font-size: 2.2rem;" id="iconoModalAyuda">❓</span>
+                <div>
+                    <h3 id="tituloModalAyuda" style="color: #ffffff; font-size: 1.25rem; font-weight: 800; margin: 0;">
+                        ¿Cómo funciona?
+                    </h3>
+                    <p style="color: #94a3b8; font-size: 0.86rem; margin: 2px 0 0 0;" id="subtituloModalAyuda">
+                        Guía interactiva paso a paso
+                    </p>
+                </div>
+            </div>
+            <div id="cuerpoModalAyuda" style="color: #e2e8f0; font-size: 0.92rem; line-height: 1.6; max-height: 55vh; overflow-y: auto;">
+                <!-- Se inyecta dinámicamente con JS según la actividad -->
+            </div>
+            <div style="margin-top: 18px; display: flex; justify-content: flex-end;">
+                <button class="btn btn-primario" id="btnEntendidoAyuda" type="button" style="padding: 8px 20px;">¡Entendido! 👍</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PIE DE PÁGINA ELEGANTE CON CHIPS DE INTEGRANTES -->
+    <footer>
+        <div class="chips-integrantes" style="margin-bottom: 14px;">
+            <span class="chip-estudiante" style="font-size: 0.95rem; padding: 6px 16px;">👩‍🔬 Valeria Hinestroza</span>
+            <span class="chip-estudiante" style="font-size: 0.95rem; padding: 6px 16px;">👩‍🔬 Salomé Jiménez</span>
+            <span class="chip-estudiante" style="font-size: 0.95rem; padding: 6px 16px;">👩‍🔬 Gabriela Muñoz</span>
+        </div>
+        <p>Laboratorio Matemático Interactivo: <strong>La Elipse</strong> · Grado Décimo (10°) · Feria STEAM+ 2026</p>
+        <p style="margin-top: 6px; font-size: 0.88rem;">Desarrollado con HTML5, CSS3 y JavaScript Puro (Vanilla JS). <a href="pruebas/pruebas.html">Ver suite de pruebas matemáticas</a></p>
+    </footer>
+
+    <!-- SCRIPTS MODULARES (Sin CDN ni librerías externas) -->
+    <script src="js/matematicas/formato.js?v=15" defer></script>
+    <script src="js/matematicas/elipse.js?v=15" defer></script>
+    <script src="js/graficador.js?v=15" defer></script>
+    <script src="js/ui/ui-explora.js?v=15" defer></script>
+    <script src="js/ui/ui-analiza.js?v=15" defer></script>
+    <script src="js/ui/ui-arma.js?v=15" defer></script>
+    <script src="js/ui/ui-retos.js?v=15" defer></script>
+    <script src="js/main.js?v=15" defer></script>
+</body>
+</html>
